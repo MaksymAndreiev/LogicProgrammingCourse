@@ -1,190 +1,182 @@
 :-use_module(library(pce)).
 :- dynamic component/3.
 
-
-% Додавання нового рядку
 add_component(Type, Name, Characteristics) :-
-    \+ component(_, Name, _), % перевірка на унікальність
+    \+ component(_, Name, _), % ГЇГҐГ°ГҐГўВіГ°ГЄГ  Г­Г  ГіГ­ВіГЄГ Г«ГјГ­ВіГ±ГІГј
     assert(component(Type, Name, Characteristics)).
 
-% Зміна запису
 update_component(Name, 1) :-
-    new(D21,dialog('Змінити компонент:')),
+    new(D21,dialog('Г‡Г¬ВіГ­ГЁГІГЁ ГЄГ®Г¬ГЇГ®Г­ГҐГ­ГІ:')),
     send(D21,append,new(L,label)),
-    send(L,append,'Зміна типу'),
-    send(D21,append,new(S,text_item('Новий тип компонента:'))),
-    send(D21,append,button('Змінити',message(@prolog,
+    send(L,append,'Г‡Г¬ВіГ­Г  ГІГЁГЇГі'),
+    send(D21,append,new(S,text_item('ГЌГ®ГўГЁГ© ГІГЁГЇ ГЄГ®Г¬ГЇГ®Г­ГҐГ­ГІГ :'))),
+    send(D21,append,button('Г‡Г¬ВіГ­ГЁГІГЁ',message(@prolog,
                                              update_type,Name,S?selection))),
-    send(D21,append,button('Скасувати',message(D21,destroy))),
+    send(D21,append,button('Г‘ГЄГ Г±ГіГўГ ГІГЁ',message(D21,destroy))),
     send(D21,open).
 
 update_component(Name, 2) :-
-    new(D22,dialog('Змінити компонент:')),
+    new(D22,dialog('Г‡Г¬ВіГ­ГЁГІГЁ ГЄГ®Г¬ГЇГ®Г­ГҐГ­ГІ:')),
     send(D22,append,new(L,label)),
-    send(L,append,'Зміна назви'),
-    send(D22,append,new(S,text_item('Нова назва:'))),
-    send(D22,append,button('Змінити',message(@prolog,
+    send(L,append,'Г‡Г¬ВіГ­Г  Г­Г Г§ГўГЁ'),
+    send(D22,append,new(S,text_item('ГЌГ®ГўГ  Г­Г Г§ГўГ :'))),
+    send(D22,append,button('Г‡Г¬ВіГ­ГЁГІГЁ',message(@prolog,
                                              update_name,Name,S?selection))),
-    send(D22,append,button('Скасувати',message(D22,destroy))),
+    send(D22,append,button('Г‘ГЄГ Г±ГіГўГ ГІГЁ',message(D22,destroy))),
     send(D22,open).
 
 update_component(Name, 3) :-
-    new(D2,dialog('Змінити компонент:')),
+    new(D2,dialog('Г‡Г¬ВіГ­ГЁГІГЁ ГЄГ®Г¬ГЇГ®Г­ГҐГ­ГІ:')),
     send(D2,append,new(L,label)),
-    send(L,append,'Зміна характеристик'),
-    send(D2,append,new(S,text_item('Нові характеристики:'))),
-    send(D2,append,button('Змінити',message(@prolog,
+    send(L,append,'Г‡Г¬ВіГ­Г  ГµГ Г°Г ГЄГІГҐГ°ГЁГ±ГІГЁГЄ'),
+    send(D2,append,new(S,text_item('ГЌГ®ГўВі ГµГ Г°Г ГЄГІГҐГ°ГЁГ±ГІГЁГЄГЁ:'))),
+    send(D2,append,button('Г‡Г¬ВіГ­ГЁГІГЁ',message(@prolog,
                                              update_characteristics,Name,S?selection))),
-    send(D2,append,button('Скасувати',message(D2,destroy))),
+    send(D2,append,button('Г‘ГЄГ Г±ГіГўГ ГІГЁ',message(D2,destroy))),
     send(D2,open).
 
 update_component(_, 4) :-
-    new(M,dialog('Результат зміни')),
+    new(M,dialog('ГђГҐГ§ГіГ«ГјГІГ ГІ Г§Г¬ВіГ­ГЁ')),
     send(M,append,new(L,label)),
-    send(L,append, 'Нічого не міняємо.'),
+    send(L,append, 'ГЌВіГ·Г®ГЈГ® Г­ГҐ Г¬ВіГ­ГїВєГ¬Г®.'),
     send(M,open).
 
 update_type(Name, NewType):-
     component(_, Name, Characteristics),
-    new(M,dialog('Результат зміни')),
+    new(M,dialog('ГђГҐГ§ГіГ«ГјГІГ ГІ Г§Г¬ВіГ­ГЁ')),
     send(M,append,new(L,label)),
     (   retract(component(_, Name, _))
     ->  assert(component(NewType, Name, Characteristics)),
-        send(L,append, 'Запис змінено.')
-    ;   send(L,append, format('Компонент з ім\'ям ~w не знайдено.~n', [Name]))
+        send(L,append, 'Г‡Г ГЇГЁГ± Г§Г¬ВіГ­ГҐГ­Г®.')
+    ;   send(L,append, format('ГЉГ®Г¬ГЇГ®Г­ГҐГ­ГІ Г§ ВіГ¬\'ГїГ¬ ~w Г­ГҐ Г§Г­Г Г©Г¤ГҐГ­Г®.~n', [Name]))
     ),
     send(M,open).
 
 update_name(Name, NewName):-
     component(Type, Name, Characteristics),
-    new(M,dialog('Результат зміни')),
+    new(M,dialog('ГђГҐГ§ГіГ«ГјГІГ ГІ Г§Г¬ВіГ­ГЁ')),
     send(M,append,new(L,label)),
     (   retract(component(_, Name, _))
     ->  assert(component(Type, NewName, Characteristics)),
-        send(L,append, 'Запис змінено.')
-    ;   send(L,append, format('Компонент з ім\'ям ~w не знайдено.~n', [Name]))
+        send(L,append, 'Г‡Г ГЇГЁГ± Г§Г¬ВіГ­ГҐГ­Г®.')
+    ;   send(L,append, format('ГЉГ®Г¬ГЇГ®Г­ГҐГ­ГІ Г§ ВіГ¬\'ГїГ¬ ~w Г­ГҐ Г§Г­Г Г©Г¤ГҐГ­Г®.~n', [Name]))
     ),
     send(M,open).
 
 update_characteristics(Name, NewCharacteristics):-
     component(Type, Name, _),
-    new(M,dialog('Результат зміни')),
+    new(M,dialog('ГђГҐГ§ГіГ«ГјГІГ ГІ Г§Г¬ВіГ­ГЁ')),
     send(M,append,new(L,label)),
     (   retract(component(_, Name, _))
     ->  assert(component(Type, Name, NewCharacteristics)),
-         send(L,append, 'Запис змінено.')
-    ;   send(L,append, format('Компонент з ім\'ям ~w не знайдено.~n', [Name]))
+         send(L,append, 'Г‡Г ГЇГЁГ± Г§Г¬ВіГ­ГҐГ­Г®.')
+    ;   send(L,append, format('ГЉГ®Г¬ГЇГ®Г­ГҐГ­ГІ Г§ ВіГ¬\'ГїГ¬ ~w Г­ГҐ Г§Г­Г Г©Г¤ГҐГ­Г®.~n', [Name]))
     ),
     send(M,open).
 
-% Видалення запису
 remove_component(Name) :-
     retract(component(_, Name, _)).
 
-
-% Меню
 menu :-
-    new(D, dialog('Компоненти комп\'ютера')),
-    send(D,append,new(L1,label)),%пояснююче повідомлення
-    send(L1,append,'База даних з конфігурації ПК.'),
+    new(D, dialog('ГЉГ®Г¬ГЇГ®Г­ГҐГ­ГІГЁ ГЄГ®Г¬ГЇ\'ГѕГІГҐГ°Г ')),
+    send(D,append,new(L1,label)),%ГЇГ®ГїГ±Г­ГѕГѕГ·ГҐ ГЇГ®ГўВіГ¤Г®Г¬Г«ГҐГ­Г­Гї
+    send(L1,append,'ГЃГ Г§Г  Г¤Г Г­ГЁГµ Г§ ГЄГ®Г­ГґВіГЈГіГ°Г Г¶ВіВї ГЏГЉ.'),
     send(D,append,new(L2,text)),
-    send(L2,append,'Виберить дії з базою даних:'),
-    send(D,append,new(Act,menu('Дія:',cycle))),%меню вибору дій
-    send_list(Act,append,[' ','Додати новий рядок',
-                          'Змінити запис',
-                          'Видалити запис',
-                          'Переглянути всі компоненти']),
-    send(D,append,button('Вибрати',message(@prolog,work_item,Act?selection))),
+    send(L2,append,'Г‚ГЁГЎГҐГ°ГЁГІГј Г¤ВіВї Г§ ГЎГ Г§Г®Гѕ Г¤Г Г­ГЁГµ:'),
+    send(D,append,new(Act,menu('Г„ВіГї:',cycle))),%Г¬ГҐГ­Гѕ ГўГЁГЎГ®Г°Гі Г¤ВіГ©
+    send_list(Act,append,[' ','Г„Г®Г¤Г ГІГЁ Г­Г®ГўГЁГ© Г°ГїГ¤Г®ГЄ',
+                          'Г‡Г¬ВіГ­ГЁГІГЁ Г§Г ГЇГЁГ±',
+                          'Г‚ГЁГ¤Г Г«ГЁГІГЁ Г§Г ГЇГЁГ±',
+                          'ГЏГҐГ°ГҐГЈГ«ГїГ­ГіГІГЁ ГўГ±Ві ГЄГ®Г¬ГЇГ®Г­ГҐГ­ГІГЁ']),
+    send(D,append,button('Г‚ГЁГЎГ°Г ГІГЁ',message(@prolog,work_item,Act?selection))),
     send(D,append,button(ok,message(D,destroy))),
     send(D,open).
     % process_choice(Choice).
 
-work_item(Item):-((Item='Додати новий рядок',X is 1);
-                 (Item='Змінити запис',X is 2);
-                 (Item='Видалити запис',X is 3);
-                 (Item='Переглянути всі компоненти',X is 4)),
+work_item(Item):-((Item='Г„Г®Г¤Г ГІГЁ Г­Г®ГўГЁГ© Г°ГїГ¤Г®ГЄ',X is 1);
+                 (Item='Г‡Г¬ВіГ­ГЁГІГЁ Г§Г ГЇГЁГ±',X is 2);
+                 (Item='Г‚ГЁГ¤Г Г«ГЁГІГЁ Г§Г ГЇГЁГ±',X is 3);
+                 (Item='ГЏГҐГ°ГҐГЈГ«ГїГ­ГіГІГЁ ГўГ±Ві ГЄГ®Г¬ГЇГ®Г­ГҐГ­ГІГЁ',X is 4)),
     process(X).
 
-process(X):-retractall(component),%завантажує базу даних
+process(X):-retractall(component),%Г§Г ГўГ Г­ГІГ Г¦ГіВє ГЎГ Г§Гі Г¤Г Г­ГЁГµ
     reconsult('components_db.pl'),
     dynamic(component/3),
-    process_choice(X).%викликає запит відповідний X
+    process_choice(X).%ГўГЁГЄГ«ГЁГЄГ Вє Г§Г ГЇГЁГІ ГўВіГ¤ГЇГ®ГўВіГ¤Г­ГЁГ© X
 
-
-% Обробка вибраної опції з меню
 process_choice(1) :-
-    new(D2,dialog('Додати новий компонент:')),
+    new(D2,dialog('Г„Г®Г¤Г ГІГЁ Г­Г®ГўГЁГ© ГЄГ®Г¬ГЇГ®Г­ГҐГ­ГІ:')),
     send(D2,append,new(L,label)),
-    send(L,append,'Введіть данні:'),
-    send(D2,append,new(S1,text_item('Тип:'))),
-    send(D2,append,new(S2,text_item('Назва:'))),
-    send(D2,append,new(S3,text_item('Характеристики:'))),
-    send(D2,append,button('Додати',message(@prolog,
+    send(L,append,'Г‚ГўГҐГ¤ВіГІГј Г¤Г Г­Г­Ві:'),
+    send(D2,append,new(S1,text_item('Г’ГЁГЇ:'))),
+    send(D2,append,new(S2,text_item('ГЌГ Г§ГўГ :'))),
+    send(D2,append,new(S3,text_item('Г•Г Г°Г ГЄГІГҐГ°ГЁГ±ГІГЁГЄГЁ:'))),
+    send(D2,append,button('Г„Г®Г¤Г ГІГЁ',message(@prolog,
                                              add_record,S1?selection,
                                              S2?selection,
                                              S3?selection))),
-    send(D2,append,button('Скасувати',message(D2,destroy))),
+    send(D2,append,button('Г‘ГЄГ Г±ГіГўГ ГІГЁ',message(D2,destroy))),
     send(D2,open).
 
 process_choice(2) :-
-    new(D3,dialog('Змінити компонент:')),
+    new(D3,dialog('Г‡Г¬ВіГ­ГЁГІГЁ ГЄГ®Г¬ГЇГ®Г­ГҐГ­ГІ:')),
     send(D3,append,new(L,label)),
-    send(L,append,'Назва компоненту для зміни: '),
-    send(D3,append,new(S1,text_item('Назва:'))),
-    send(D3,append,new(Act,menu(action,cycle))),%меню вибору дій
-    send_list(Act,append,[' ','Тип компонента',
-                          'Назву компонента',
-                          'Характеристики',
-                          'Нічого не міняти']),
-    send(D3,append,button('Змінити', message(@prolog,
+    send(L,append,'ГЌГ Г§ГўГ  ГЄГ®Г¬ГЇГ®Г­ГҐГ­ГІГі Г¤Г«Гї Г§Г¬ВіГ­ГЁ: '),
+    send(D3,append,new(S1,text_item('ГЌГ Г§ГўГ :'))),
+    send(D3,append,new(Act,menu(action,cycle))),%Г¬ГҐГ­Гѕ ГўГЁГЎГ®Г°Гі Г¤ВіГ©
+    send_list(Act,append,[' ','Г’ГЁГЇ ГЄГ®Г¬ГЇГ®Г­ГҐГ­ГІГ ',
+                          'ГЌГ Г§ГўГі ГЄГ®Г¬ГЇГ®Г­ГҐГ­ГІГ ',
+                          'Г•Г Г°Г ГЄГІГҐГ°ГЁГ±ГІГЁГЄГЁ',
+                          'ГЌВіГ·Г®ГЈГ® Г­ГҐ Г¬ВіГ­ГїГІГЁ']),
+    send(D3,append,button('Г‡Г¬ВіГ­ГЁГІГЁ', message(@prolog,
                                              change_item, S1?selection, Act?selection))),
-    send(D3,append,button('Скасувати',message(D3,destroy))),
+    send(D3,append,button('Г‘ГЄГ Г±ГіГўГ ГІГЁ',message(D3,destroy))),
     send(D3,open).
 
 process_choice(3) :-
-    new(D4,dialog('Видалити компонент:')),
+    new(D4,dialog('Г‚ГЁГ¤Г Г«ГЁГІГЁ ГЄГ®Г¬ГЇГ®Г­ГҐГ­ГІ:')),
     send(D4,append,new(L,label)),
-    send(L,append,'Назва компоненту для видалення'),
-    send(D4,append,new(S1,text_item('Назва:'))),
-    send(D4,append,button('Видалити запис',message(@prolog,
+    send(L,append,'ГЌГ Г§ГўГ  ГЄГ®Г¬ГЇГ®Г­ГҐГ­ГІГі Г¤Г«Гї ГўГЁГ¤Г Г«ГҐГ­Г­Гї'),
+    send(D4,append,new(S1,text_item('ГЌГ Г§ГўГ :'))),
+    send(D4,append,button('Г‚ГЁГ¤Г Г«ГЁГІГЁ Г§Г ГЇГЁГ±',message(@prolog,
                                              del_record,S1?selection))),
-    send(D4,append,button('Скасувати',message(D4,destroy))),
+    send(D4,append,button('Г‘ГЄГ Г±ГіГўГ ГІГЁ',message(D4,destroy))),
     send(D4,open).
 
 process_choice(4) :-
-    new(D1,dialog('Інформація про конфігурацію.')),
+    new(D1,dialog('ВІГ­ГґГ®Г°Г¬Г Г¶ВіГї ГЇГ°Г® ГЄГ®Г­ГґВіГЈГіГ°Г Г¶ВіГѕ.')),
     send(D1,append,new(L,label)),
-    send(L,append,'Інформація про всі компоненти. '),
-    send(D1,append,new(Lb,list_browser)),%поле виводу списку
-    send(Lb,size,size(100, 20)),%розмір поля
+    send(L,append,'ВІГ­ГґГ®Г°Г¬Г Г¶ВіГї ГЇГ°Г® ГўГ±Ві ГЄГ®Г¬ГЇГ®Г­ГҐГ­ГІГЁ. '),
+    send(D1,append,new(Lb,list_browser)),%ГЇГ®Г«ГҐ ГўГЁГўГ®Г¤Гі Г±ГЇГЁГ±ГЄГі
+    send(Lb,size,size(100, 20)),%Г°Г®Г§Г¬ВіГ° ГЇГ®Г«Гї
     send(Lb,alignment,center),
-    send_list(Lb,append,['Компоненти \n Тип\t\t|\tНазва\t|\tХарактеристики']),%додавання записів на поле
+    send_list(Lb,append,['ГЉГ®Г¬ГЇГ®Г­ГҐГ­ГІГЁ \n Г’ГЁГЇ\t\t|\tГЌГ Г§ГўГ \t|\tГ•Г Г°Г ГЄГІГҐГ°ГЁГ±ГІГЁГЄГЁ']),%Г¤Г®Г¤Г ГўГ Г­Г­Гї Г§Г ГЇГЁГ±ВіГў Г­Г  ГЇГ®Г«ГҐ
     component(Type, Name, Characteristics),
     string_concat(Type,"\t\t|\t",S1), string_concat(Name,"\t|\t",S2),
     string_concat(S1,S2,S3),string_concat(S3,Characteristics,S4),
     send_list(Lb,append, [S4]),
-    send(D1,append,button('Скасувати',message(D1,destroy))),
+    send(D1,append,button('Г‘ГЄГ Г±ГіГўГ ГІГЁ',message(D1,destroy))),
     send(D1,open),fail.
 
 del_record(Name):-
     remove_component(Name),
-    new(M,dialog('Результат видалення')),
+    new(M,dialog('ГђГҐГ§ГіГ«ГјГІГ ГІ ГўГЁГ¤Г Г«ГҐГ­Г­Гї')),
     send(M,append,new(L,label)),
-    send(L,append,'Компонент видалено.'),
+    send(L,append,'ГЉГ®Г¬ГЇГ®Г­ГҐГ­ГІ ГўГЁГ¤Г Г«ГҐГ­Г®.'),
     send(M,open).
 
 change_item(Name, Item):-
-    ((Item='Тип компонента',X is 1);
-                 (Item='Назву компонента',X is 2);
-                 (Item='Характеристики',X is 3);
-                 (Item='Нічого не міняти',X is 4)),
+    ((Item='Г’ГЁГЇ ГЄГ®Г¬ГЇГ®Г­ГҐГ­ГІГ ',X is 1);
+                 (Item='ГЌГ Г§ГўГі ГЄГ®Г¬ГЇГ®Г­ГҐГ­ГІГ ',X is 2);
+                 (Item='Г•Г Г°Г ГЄГІГҐГ°ГЁГ±ГІГЁГЄГЁ',X is 3);
+                 (Item='ГЌВіГ·Г®ГЈГ® Г­ГҐ Г¬ВіГ­ГїГІГЁ',X is 4)),
     update_component(Name, X).
 
 add_record(Type,Name,Characteristics):-
     add_component(Type,Name,Characteristics),
-    new(M,dialog('Результат додавання')),
+    new(M,dialog('ГђГҐГ§ГіГ«ГјГІГ ГІ Г¤Г®Г¤Г ГўГ Г­Г­Гї')),
     send(M,append,new(L,label)),
-    send(L,append,'Новий компонент додано!'),
+    send(L,append,'ГЌГ®ГўГЁГ© ГЄГ®Г¬ГЇГ®Г­ГҐГ­ГІ Г¤Г®Г¤Г Г­Г®!'),
     send(M,open).
 
 
