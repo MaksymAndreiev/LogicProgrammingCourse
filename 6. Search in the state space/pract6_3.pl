@@ -1,4 +1,4 @@
-% набір фактів, що відображає ребра графу
+% РЅР°Р±С–СЂ С„Р°РєС‚С–РІ, С‰Рѕ РІС–РґРѕР±СЂР°Р¶Р°С” СЂРµР±СЂР° РіСЂР°С„Сѓ
 
 m(a, b, 3).
 m(a, c, 10).
@@ -11,36 +11,36 @@ m(c, f, 7).
 m(d, d, 1).
 m(d, f, 7).
 
-% правило одного кроку move
+% РїСЂР°РІРёР»Рѕ РѕРґРЅРѕРіРѕ РєСЂРѕРєСѓ move
 move(A,B,C):-m(A,B,C); m(B,A,C).
 
-% для подовження шляху на один крок
+% РґР»СЏ РїРѕРґРѕРІР¶РµРЅРЅСЏ С€Р»СЏС…Сѓ РЅР° РѕРґРёРЅ РєСЂРѕРє
 prolong(Length:[Temp|Tail],NewLength:[New,Temp|Tail]):-
     move(Temp,New,C),not(member(New,[Temp|Tail])),
     NewLength is Length+C.
 
-% правило для вставки шляху на потрібне місце
+% РїСЂР°РІРёР»Рѕ РґР»СЏ РІСЃС‚Р°РІРєРё С€Р»СЏС…Сѓ РЅР° РїРѕС‚СЂС–Р±РЅРµ РјС–СЃС†Рµ
 placeone(Length:Way,[LengthH:WayH|Tail],[Length:Way,LengthH:WayH|Tail]):-
     Length=<LengthH,!.
 placeone(LengthWay,[LengthHWayH|Tail],[LengthHWayH|NewTail]):-
     placeone(LengthWay,Tail,NewTail).
 placeone(LengthWay,[],[LengthWay]).
 
-% правило для розставляння шляхів по потрібним місцям
-place([],SortedWays,SortedWays).%якщо список пустий, то поточний список і буде відповіддю
+% РїСЂР°РІРёР»Рѕ РґР»СЏ СЂРѕР·СЃС‚Р°РІР»СЏРЅРЅСЏ С€Р»СЏС…С–РІ РїРѕ РїРѕС‚СЂС–Р±РЅРёРј РјС–СЃС†СЏРј
+place([],SortedWays,SortedWays).%СЏРєС‰Рѕ СЃРїРёСЃРѕРє РїСѓСЃС‚РёР№, С‚Рѕ РїРѕС‚РѕС‡РЅРёР№ СЃРїРёСЃРѕРє С– Р±СѓРґРµ РІС–РґРїРѕРІС–РґРґСЋ
 place([Way|Tail],PrevWays,SortedWays):-
-    placeone(Way,PrevWays,PrevWays1),%інакше вставляємо на потрібне місце перший шлях
-    place(Tail,PrevWays1,SortedWays).%і продовжуємо розставляти решту
+В  В  placeone(Way,PrevWays,PrevWays1),%С–РЅР°РєС€Рµ РІСЃС‚Р°РІР»СЏС”РјРѕ РЅР° РїРѕС‚СЂС–Р±РЅРµ РјС–СЃС†Рµ РїРµСЂС€РёР№ С€Р»СЏС…
+В  В  place(Tail,PrevWays1,SortedWays).%С– РїСЂРѕРґРѕРІР¶СѓС”РјРѕ СЂРѕР·СЃС‚Р°РІР»СЏС‚Рё СЂРµС€С‚Сѓ
 
-% допоміжний предикат для зручності користувача
+% РґРѕРїРѕРјС–Р¶РЅРёР№ РїСЂРµРґРёРєР°С‚ РґР»СЏ Р·СЂСѓС‡РЅРѕСЃС‚С– РєРѕСЂРёСЃС‚СѓРІР°С‡Р°
 search_bst(Start,Finish):-
     bst([0:[Start]],Finish,Length:Way),
     show_answer(Way),nl,write('Length of way: '), write(Length).
 
-% правило для пошуку найкоротшого шляху
+% РїСЂР°РІРёР»Рѕ РґР»СЏ РїРѕС€СѓРєСѓ РЅР°Р№РєРѕСЂРѕС‚С€РѕРіРѕ С€Р»СЏС…Сѓ
 bst([Length:[Finish|Tail]|_],Finish,Length:[Finish|Tail]).
 bst([TempWay|OtherWays],Finish,Way):-
-    findall(W, prolong(TempWay,W),Ways),
-    place(Ways,OtherWays,NewWays),%ось відмінність від пошуку в ширину
-    %нові шляхи не додаються в кінець, а розставляються по потрібним місцям
-    bst(NewWays,Finish,Way).
+В  В  findall(W, prolong(TempWay,W),Ways),
+В  В  place(Ways,OtherWays,NewWays),%РѕСЃСЊ РІС–РґРјС–РЅРЅС–СЃС‚СЊ РІС–Рґ РїРѕС€СѓРєСѓ РІ С€РёСЂРёРЅСѓ
+В  В  %РЅРѕРІС– С€Р»СЏС…Рё РЅРµ РґРѕРґР°СЋС‚СЊСЃСЏ РІ РєС–РЅРµС†СЊ, Р° СЂРѕР·СЃС‚Р°РІР»СЏСЋС‚СЊСЃСЏ РїРѕ РїРѕС‚СЂС–Р±РЅРёРј РјС–СЃС†СЏРј
+В  В  bst(NewWays,Finish,Way).

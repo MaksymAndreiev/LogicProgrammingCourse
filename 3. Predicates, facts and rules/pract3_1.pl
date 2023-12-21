@@ -1,4 +1,4 @@
-% Факти
+% Р¤Р°РєС‚Рё
 special('John Smith', 'Engineer').
 special('Alice Johnson', 'Teacher').
 special('David Brown', 'Lawyer').
@@ -10,7 +10,7 @@ special('Laura Lee', 'Artist').
 special('William Clark', 'Scientist').
 special('Elizabeth Scott', 'Musician').
 
-% Зовнішня мета
+% Р—РѕРІРЅС–С€РЅСЏ РјРµС‚Р°
 profession_is :-
     write('Name? '),
     read(Name),

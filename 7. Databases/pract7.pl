@@ -1,107 +1,107 @@
 :- dynamic component/3.
 
-% База даних
-% Кожен рядок містить назву компонента та його характеристики
-component('процесор', 'Intel Core i5', 'Тактова частота: 3.2 ГГц, Кількість ядер: 4').
-component('материнська плата', 'Asus Prime B450M', 'Ціна: 80 доларів, Кількість роз\'ємів оперативної пам\'яті: 4').
-component('оперативна пам\'ять', 'Kingston HyperX Fury', 'Об\'єм: 16 ГБ, Частота: 2.0 ГГц').
-component('накопичувач', 'Samsung 970 EVO', 'Об\'єм: 500 ГБ, Швидкість читання/запису: 3.4/3.3 Гб/с').
-component('відеокарта', 'Nvidia GeForce GTX 1660', 'Об\'єм пам\'яті: 6 ГБ, Кількість вентиляторів: 1').
-component('живлення', 'Corsair CX450M', 'Потужність: 450 Вт, Кількість роз\'ємів живлення: 1').
-component('корпус', 'Aerocool Cylon Mini', 'Ціна: 40 доларів, Кількість вентиляторів: 1').
+% Р‘Р°Р·Р° РґР°РЅРёС…
+% РљРѕР¶РµРЅ СЂСЏРґРѕРє РјС–СЃС‚РёС‚СЊ РЅР°Р·РІСѓ РєРѕРјРїРѕРЅРµРЅС‚Р° С‚Р° Р№РѕРіРѕ С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєРё
+component('РїСЂРѕС†РµСЃРѕСЂ', 'Intel Core i5', 'РўР°РєС‚РѕРІР° С‡Р°СЃС‚РѕС‚Р°: 3.2 Р“Р“С†, РљС–Р»СЊРєС–СЃС‚СЊ СЏРґРµСЂ: 4').
+component('РјР°С‚РµСЂРёРЅСЃСЊРєР° РїР»Р°С‚Р°', 'Asus Prime B450M', 'Р¦С–РЅР°: 80 РґРѕР»Р°СЂС–РІ, РљС–Р»СЊРєС–СЃС‚СЊ СЂРѕР·\'С”РјС–РІ РѕРїРµСЂР°С‚РёРІРЅРѕС— РїР°Рј\'СЏС‚С–: 4').
+component('РѕРїРµСЂР°С‚РёРІРЅР° РїР°Рј\'СЏС‚СЊ', 'Kingston HyperX Fury', 'РћР±\'С”Рј: 16 Р“Р‘, Р§Р°СЃС‚РѕС‚Р°: 2.0 Р“Р“С†').
+component('РЅР°РєРѕРїРёС‡СѓРІР°С‡', 'Samsung 970 EVO', 'РћР±\'С”Рј: 500 Р“Р‘, РЁРІРёРґРєС–СЃС‚СЊ С‡РёС‚Р°РЅРЅСЏ/Р·Р°РїРёСЃСѓ: 3.4/3.3 Р“Р±/СЃ').
+component('РІС–РґРµРѕРєР°СЂС‚Р°', 'Nvidia GeForce GTX 1660', 'РћР±\'С”Рј РїР°Рј\'СЏС‚С–: 6 Р“Р‘, РљС–Р»СЊРєС–СЃС‚СЊ РІРµРЅС‚РёР»СЏС‚РѕСЂС–РІ: 1').
+component('Р¶РёРІР»РµРЅРЅСЏ', 'Corsair CX450M', 'РџРѕС‚СѓР¶РЅС–СЃС‚СЊ: 450 Р’С‚, РљС–Р»СЊРєС–СЃС‚СЊ СЂРѕР·\'С”РјС–РІ Р¶РёРІР»РµРЅРЅСЏ: 1').
+component('РєРѕСЂРїСѓСЃ', 'Aerocool Cylon Mini', 'Р¦С–РЅР°: 40 РґРѕР»Р°СЂС–РІ, РљС–Р»СЊРєС–СЃС‚СЊ РІРµРЅС‚РёР»СЏС‚РѕСЂС–РІ: 1').
 
-% Додавання нового рядку
+% Р”РѕРґР°РІР°РЅРЅСЏ РЅРѕРІРѕРіРѕ СЂСЏРґРєСѓ
 add_component(Type, Name, Characteristics) :-
-    \+ component(_, Name, _), % перевірка на унікальність
+    \+ component(_, Name, _), % РїРµСЂРµРІС–СЂРєР° РЅР° СѓРЅС–РєР°Р»СЊРЅС–СЃС‚СЊ
     assert(component(Type, Name, Characteristics)).
 
-% Зміна запису
+% Р—РјС–РЅР° Р·Р°РїРёСЃСѓ
 update_component(Name, 1) :-
     component(_, Name, Characteristics),
-    writeln('Новий тип компонента: '),
+    writeln('РќРѕРІРёР№ С‚РёРї РєРѕРјРїРѕРЅРµРЅС‚Р°: '),
     read(NewType),
     (   retract(component(_, Name, _))
     ->  assert(component(NewType, Name, Characteristics)),
-        write('Запис змінено.'), nl
-    ;   format('Компонент з ім\'ям ~w не знайдено.~n', [Name])
+        write('Р—Р°РїРёСЃ Р·РјС–РЅРµРЅРѕ.'), nl
+    ;   format('РљРѕРјРїРѕРЅРµРЅС‚ Р· С–Рј\'СЏРј ~w РЅРµ Р·РЅР°Р№РґРµРЅРѕ.~n', [Name])
     ).
 
 update_component(Name, 2) :-
     component(Type, Name, Characteristics),
-    writeln('Нова назва: '),
+    writeln('РќРѕРІР° РЅР°Р·РІР°: '),
     read(NewName),
     (   retract(component(_, Name, _))
     ->  assert(component(Type, NewName, Characteristics)),
-        write('Запис змінено.'), nl
-    ;   format('Компонент з ім\'ям ~w не знайдено.~n', [Name])
+        write('Р—Р°РїРёСЃ Р·РјС–РЅРµРЅРѕ.'), nl
+    ;   format('РљРѕРјРїРѕРЅРµРЅС‚ Р· С–Рј\'СЏРј ~w РЅРµ Р·РЅР°Р№РґРµРЅРѕ.~n', [Name])
     ).
 
 update_component(Name, 3) :-
     component(Type, Name, _),
-    writeln('Нові характеристики: '),
+    writeln('РќРѕРІС– С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєРё: '),
     read(NewCharacteristics),
     (   retract(component(_, Name, _))
     ->  assert(component(Type, Name, NewCharacteristics)),
-        write('Запис змінено.'), nl
-    ;   format('Компонент з ім\'ям ~w не знайдено.~n', [Name])
+        write('Р—Р°РїРёСЃ Р·РјС–РЅРµРЅРѕ.'), nl
+    ;   format('РљРѕРјРїРѕРЅРµРЅС‚ Р· С–Рј\'СЏРј ~w РЅРµ Р·РЅР°Р№РґРµРЅРѕ.~n', [Name])
     ).
 
 update_component(_, 4) :-
-    write('Нічого не міняємо.'), nl.
+    write('РќС–С‡РѕРіРѕ РЅРµ РјС–РЅСЏС”РјРѕ.'), nl.
 
-% Видалення запису
+% Р’РёРґР°Р»РµРЅРЅСЏ Р·Р°РїРёСЃСѓ
 remove_component(Name) :-
     retract(component(_, Name, _)).
 
-% Вивести всі компоненти
+% Р’РёРІРµСЃС‚Рё РІСЃС– РєРѕРјРїРѕРЅРµРЅС‚Рё
 list_components :-
     component(Type, Name, Characteristics),
-    write('Тип: '), write(Type), nl,
-    write('Назва: '), write(Name), nl,
-    writeln('Характеристики: '), write(Characteristics), nl,
+    write('РўРёРї: '), write(Type), nl,
+    write('РќР°Р·РІР°: '), write(Name), nl,
+    writeln('РҐР°СЂР°РєС‚РµСЂРёСЃС‚РёРєРё: '), write(Characteristics), nl,
     nl,
     fail.
 
 list_components.
 
-% Меню
+% РњРµРЅСЋ
 menu :-
     write('--------------------------'), nl,
-    write('1. Додати новий рядок'), nl,
-    write('2. Змінити запис'), nl,
-    write('3. Видалити запис'), nl,
-    write('4. Переглянути всі компоненти'), nl,
-    write('5. Вихід'), nl,
+    write('1. Р”РѕРґР°С‚Рё РЅРѕРІРёР№ СЂСЏРґРѕРє'), nl,
+    write('2. Р—РјС–РЅРёС‚Рё Р·Р°РїРёСЃ'), nl,
+    write('3. Р’РёРґР°Р»РёС‚Рё Р·Р°РїРёСЃ'), nl,
+    write('4. РџРµСЂРµРіР»СЏРЅСѓС‚Рё РІСЃС– РєРѕРјРїРѕРЅРµРЅС‚Рё'), nl,
+    write('5. Р’РёС…С–Рґ'), nl,
     read(Choice),
     process_choice(Choice).
 
-% Обробка вибраної опції з меню
+% РћР±СЂРѕР±РєР° РІРёР±СЂР°РЅРѕС— РѕРїС†С–С— Р· РјРµРЅСЋ
 process_choice(1) :-
-    writeln('Тип компонента: '),
+    writeln('РўРёРї РєРѕРјРїРѕРЅРµРЅС‚Р°: '),
     read(Type),
-    write('Назва '),
+    write('РќР°Р·РІР° '),
     write(Type),
     writeln(' : '),
     read(Name),
-    writeln('Характеристики: '),
+    writeln('РҐР°СЂР°РєС‚РµСЂРёСЃС‚РёРєРё: '),
     read(Characteristics),
     add_component(Type, Name, Characteristics),
     menu.
 
 process_choice(2) :-
-    write('Назва компоненту для зміни: '), nl,
+    write('РќР°Р·РІР° РєРѕРјРїРѕРЅРµРЅС‚Сѓ РґР»СЏ Р·РјС–РЅРё: '), nl,
     read(Name),
-    write('Виберіть, що змінити: '), nl,
-    write('1. Тип компонента'), nl,
-    write('2. Назву компонента'), nl,
-    write('3. Характеристики'), nl,
-    write('4. Нічого не міняти'), nl,
+    write('Р’РёР±РµСЂС–С‚СЊ, С‰Рѕ Р·РјС–РЅРёС‚Рё: '), nl,
+    write('1. РўРёРї РєРѕРјРїРѕРЅРµРЅС‚Р°'), nl,
+    write('2. РќР°Р·РІСѓ РєРѕРјРїРѕРЅРµРЅС‚Р°'), nl,
+    write('3. РҐР°СЂР°РєС‚РµСЂРёСЃС‚РёРєРё'), nl,
+    write('4. РќС–С‡РѕРіРѕ РЅРµ РјС–РЅСЏС‚Рё'), nl,
     read(Choice),
     update_component(Name, Choice),
     menu.
 
 process_choice(3) :-
-    writeln('Назва компоненту для видалення: '),
+    writeln('РќР°Р·РІР° РєРѕРјРїРѕРЅРµРЅС‚Сѓ РґР»СЏ РІРёРґР°Р»РµРЅРЅСЏ: '),
     read(Name),
     remove_component(Name),
     menu.
@@ -111,7 +111,7 @@ process_choice(4) :-
     menu.
 
 process_choice(5) :-
-    write('До побачення!'),
+    write('Р”Рѕ РїРѕР±Р°С‡РµРЅРЅСЏ!'),
     nl,
     halt.
 
