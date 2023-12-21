@@ -7,10 +7,13 @@ members n (using recursion). Take the value of the argument x from the specified
 $$
 \begin{array}{|r|r|}
 \hline
-\text Функціональний ряд & Діапазон зміни аргументу & Кількість членів ряду n
+\text Functional \quad series & Range \quad of \quad change \quad of \quad argument & Number \quad of \quad members \quad of \quad series \quad n
 \\
 \hline
-\sum_{i=0}^{\infty} \frac{\ln^i(3)}{i!} x^i & \[0.1\; 1\] & 10
+\sum\limits_{i=0}^{\infty} \frac{\ln^i(3)}{i!}x^i & \[0.1\; 1\] & 10
+\\
+\hline
+\end{array}
 $$
 
 # Завдання 4. Рекурсія в Пролог
@@ -23,8 +26,11 @@ $$
 $$
 \begin{array}{|r|r|}
 \hline
-\text Функціональний ряд & Діапазон зміни аргументу & Кількість членів ряду n
+\text Функціональний \quad ряд & Діапазон \quad зміни \quad  аргументу & Кількість  \quad членів  \quad ряду  \quad n
 \\
 \hline
-\sum_{i=0}^{\infty} \frac{\ln^i(3)}{i!} x^i & \[0.1\; 1\] & 10
+\sum\limits_{i=0}^{\infty} \frac{\ln^i(3)}{i!}x^i & \[0.1\; 1\] & 10
+\\
+\hline
+\end{array}
 $$
