@@ -1,4 +1,3 @@
-
 parent('Mary','Alex').
 parent('George', 'Alex').
 woman('Mary').

@@ -2,11 +2,9 @@
 
 Tasks for the term paper
 1. Familiarize yourself with the variant of the expert system and its purpose
-(Appendix A). According to the variant, develop a knowledge base of the expert system
-system knowledge base.
+(Appendix A). According to the variant, develop a knowledge base of the expert system knowledge base.
 2. Develop an output algorithm and interface for implementing the expert system.
-system, create a software implementation of the expert system using
-using the Prolog logic programming language. Provide for
+system, create a software implementation of the expert system using the Prolog logic programming language. Provide for
 the ability to edit the database by the user.
 3. Conduct testing of the expert system. The results obtained must
 be true and correct. If necessary, make
