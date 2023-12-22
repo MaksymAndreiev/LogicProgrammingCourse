@@ -7,13 +7,13 @@
 # Logic programming in Prolog
 
 A workshop on the course "Artificial Intelligence Systems" at V. N. Karazin Kharkiv National University, which I
-took as a 4th year student in 2023, majoring in Computer Engineering. In practice, it was a study of logic theory with
+took as a 4th year student in 2023, majoring in Computer Engineering at the Computer Science Department. In practice, it was a study of logic theory with
 using the Prolog programming language.
 
 # Логічне програмування на Пролозі
 
 Практикум по курсу "Системи штучного інтелекту" в Харківському національному університеті імені В. Н. Каразіна, що я
-проходив на 4 курсі в 2023 році за спеціальністю "Комп'ютерна інженерія". На практиці це було вивчення теорії логіки з
+проходив на 4 курсі в 2023 році за спеціальністю "Комп'ютерна інженерія" на факультеті комп`ютерних наук. На практиці це було вивчення теорії логіки з
 використанням мови програмування Пролог.
  
 
